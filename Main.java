@@ -51,7 +51,7 @@ class Main {
             // доступ к данным текущего элемента дерева
             System.out.println("11. current element");
             // переход к предыдущему значению элемента дерева
-            System.out.println("12. next position:");
+            System.out.println("12. next position");
             // переход к следующему по значению элемента дерева
             System.out.println("13. previous position");
             // операции обхода
