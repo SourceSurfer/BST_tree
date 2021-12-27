@@ -50,19 +50,21 @@ class Main {
             System.out.println("10. has next");
             // доступ к данным текущего элемента дерева
             System.out.println("11. current element");
-            // переход к предыдущему по значению ключа элемента дерева
-            System.out.println("12. previous position");
+            // переход к предыдущему значению элемента дерева
+            System.out.println("12. next position:");
+            // переход к следующему по значению элемента дерева
+            System.out.println("13. previous position");
             // операции обхода
-            System.out.println("13. tree traversals");
+            System.out.println("14. tree traversals");
 
             System.out.print("Your choice is: ");
             int choice;
             do {
                 while (!scan.hasNextInt()) {
                     System.out.println("That's not a number!");
+                    System.out.print("Your choice is: ");
                     scan.next();
                 }
-
                 choice = scan.nextInt();
             } while (choice <= 0);
 
@@ -122,9 +124,12 @@ class Main {
                     System.out.println("Current position is: " + bstMy.currentElement());
                     break;
                 case 12:
-                    System.out.println("Previous position: " + bstMy.previous());
+                    System.out.println("Next position: " + bstMy.nextPos());
                     break;
                 case 13:
+                    System.out.println("Previous position: " + bstMy.previous());
+                    break;
+                case 14:
                     it = bstMy.iterator();
                     System.out.print("in-order Lt->t->Rt: ");
                     while (it.hasNext()) {

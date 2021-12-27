@@ -272,11 +272,15 @@ public class BST<T extends Comparable<T>> implements ISet<T> {
 
     public T currentElement()
     {
-        return in.next();
+        return in.currentPos();
     }
 
-    public boolean previous()
+    public T previous()
     {
         return in.previousPos();
+    }
+
+    public boolean nextPos(){
+        return in.nextPos();
     }
 }

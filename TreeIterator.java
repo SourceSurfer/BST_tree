@@ -8,6 +8,7 @@ public class TreeIterator<T extends Comparable<T>> implements Iterator<T> {
     protected BSTreeNode<T> root;
     protected Stack<BSTreeNode<T>> visiting;
     protected Stack<Boolean> visitingRightChild;
+    private int pos;
 
     boolean preorder;
     boolean inorder;
@@ -17,7 +18,6 @@ public class TreeIterator<T extends Comparable<T>> implements Iterator<T> {
         return new TreeIterator<>(root);
     }
 
-
     public TreeIterator(BSTreeNode<T> root) {
         this.root = root;
         visiting = new Stack<>();
@@ -25,12 +25,18 @@ public class TreeIterator<T extends Comparable<T>> implements Iterator<T> {
         preorder = false;
         inorder = true;
         postorder = false;
+        pos = 0;
+        if (visiting.empty()) {
+            pushNode(root);
+        }
     }
 
     @Override
     public boolean hasNext() {
         return (root != null);
     }
+
+
 
     @Override
     public T next() {
@@ -49,9 +55,23 @@ public class TreeIterator<T extends Comparable<T>> implements Iterator<T> {
         }
     }
 
-    public boolean previousPos()
+
+    public T previousPos()
     {
+        pos = pos - 1;
+        if (pos < 0){
+            nextPos();
+        }
+        return visiting.get(pos).element;
+    }
+
+    public boolean nextPos(){
+        pos = pos + 1;
         return true;
+    }
+
+    public T currentPos(){
+        return visiting.get(pos).element;
     }
 
 
@@ -73,8 +93,16 @@ public class TreeIterator<T extends Comparable<T>> implements Iterator<T> {
         }
         return node.element;
     }
-    private void pushLeftmostNode(BSTreeNode<T> node) {
 
+    private void pushNode(BSTreeNode<T> node) {
+        if (node != null) {
+            visiting.push(node);
+            pushNode(node.left);
+        }
+    }
+
+
+    private void pushLeftmostNode(BSTreeNode<T> node) {
         if (node != null) {
             visiting.push(node);
             pushLeftmostNode(node.left);
@@ -83,7 +111,6 @@ public class TreeIterator<T extends Comparable<T>> implements Iterator<T> {
 
     private T inorderNext() {
         if (visiting.empty()) {
-
             pushLeftmostNode(root);
         }
         BSTreeNode<T> node = visiting.pop();
@@ -111,7 +138,6 @@ public class TreeIterator<T extends Comparable<T>> implements Iterator<T> {
 
     private T postorderNext() {
         if (visiting.empty()) {
-
             pushLeftmostNodeRecord(root);
         }
 
